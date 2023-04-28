@@ -143,7 +143,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//then recursively print the right side of current node
 	//For a bst this will print the values in sorted order from smallest to largest
 	public void inOrder() {
-		System.out.println("InOrder test commit");
+		//System.out.println("InOrder test commit");
 
 		inOrderRecurse(root); 
 	}
@@ -160,7 +160,19 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//Traverse the tree in an inorder fashion but using a stack
 	public void inOrderStack() {
 		Stack<BSTNode<T>> in = new Stack<BSTNode<T>>();
+		BSTNode<T> current = root;
 		
+		while (!in.isEmpty() || current != null) {
+			if (current != null) {
+				in.push(current);
+				current = current.leftChild;
+			}
+			else {
+				BSTNode<T> temp = in.pop();
+				System.out.print(temp + " ");
+				current = temp.rightChild;
+			}
+		}
 		
 		
 	}
@@ -168,7 +180,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//Traverse the tree in an postorder fashion
 	//Recurse on the children and then print the value in the current node
 	public void postOrder() {
-		System.out.println("postOrder commit test");
+		//System.out.println("postOrder commit test");
 		postOrderRecurse(root); 
 	}
 	
@@ -179,7 +191,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		postOrderRecurse(node.leftChild);
 		postOrderRecurse(node.rightChild);
 		System.out.print(node + " ");
-		
 	}
 	
 	//Traverse the tree in an postorder fashion uses Stacks. 
@@ -192,6 +203,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		if(root!=null) {
 			postHelper.push(root);
 			while(!postHelper.isEmpty()) {
+				 BSTNode<T> temp = postHelper.pop();
+		         post.push(temp);
+		 
+	            // Push left and right children of
+	            // removed item to s1
+	            if (temp.leftChild != null)
+	                postHelper.push(temp.leftChild);
+	            if (temp.rightChild != null)
+	                postHelper.push(temp.rightChild);
+			
 				//how should post and postHelper be updated?
 			}
 			
